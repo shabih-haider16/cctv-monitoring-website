@@ -83,29 +83,58 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Interactive Quote Form (Placeholder feedback)
+  // LIVE FORMSUBMIT CONNECTION (Replaced the placeholder)
   const contactForm = document.querySelector(".quote-form-element");
   if (contactForm) {
     contactForm.addEventListener("submit", (e) => {
-      e.preventDefault();
+      e.preventDefault(); // Stop standard page reload
 
       const submitBtn = contactForm.querySelector('button[type="submit"]');
       const originalText = submitBtn.innerHTML;
 
+      // Update UI status to sending
       submitBtn.innerHTML = "Sending Quote Request...";
       submitBtn.disabled = true;
 
-      setTimeout(() => {
-        submitBtn.innerHTML = "✓ Quote Request Sent Successfully!";
-        submitBtn.style.backgroundColor = "#10b981"; // Green status
-        contactForm.reset();
+      // Grab the layout data from the HTML form elements dynamically
+      const formData = new FormData(contactForm);
 
-        setTimeout(() => {
-          submitBtn.innerHTML = originalText;
-          submitBtn.style.backgroundColor = "";
+      // Post asynchronous fetch directly to FormSubmit endpoint background channel
+      fetch(contactForm.action, {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "application/json",
+        },
+      })
+        .then((response) => {
+          if (response.ok) {
+            // Update button style to green success checkmark status
+            submitBtn.innerHTML = "✓ Quote Request Sent Successfully!";
+            submitBtn.style.backgroundColor = "#10b981";
+            contactForm.reset(); // Clears all filled form fields safely
+
+            // Revert back button appearance state after 4 seconds
+            setTimeout(() => {
+              submitBtn.innerHTML = originalText;
+              submitBtn.style.backgroundColor = "";
+              submitBtn.disabled = false;
+            }, 4000);
+          } else {
+            throw new Error("Form submission failed.");
+          }
+        })
+        .catch((error) => {
+          // Fallback UI error handler state notice
+          submitBtn.innerHTML = "Error! Try Again.";
+          submitBtn.style.backgroundColor = "#ef4444";
           submitBtn.disabled = false;
-        }, 3000);
-      }, 1500);
+
+          setTimeout(() => {
+            submitBtn.innerHTML = originalText;
+            submitBtn.style.backgroundColor = "";
+          }, 3000);
+        });
     });
   }
 });

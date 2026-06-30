@@ -155,13 +155,27 @@
             from our systems technician.
           </p>
 
-          <form class="quote-form-element">
+          <form
+            id="quoteForm"
+            class="quote-form-element"
+            action="https://formsubmit.co/safewatchsolutions1@gmail.com"
+            method="POST"
+          >
+            <input type="hidden" name="_captcha" value="false" />
+            <input
+              type="hidden"
+              name="_subject"
+              value="New Quote Request from Safewatch"
+            />
+            <input type="hidden" name="_template" value="table" />
+
             <div class="form-row">
               <div class="form-group">
                 <label class="form-label" for="fname">Full Name</label>
                 <input
                   type="text"
                   id="fname"
+                  name="Full Name"
                   class="form-input"
                   placeholder="e.g. John Doe"
                   required
@@ -177,6 +191,7 @@
                 <input
                   type="text"
                   id="bname"
+                  name="Business Name"
                   class="form-input"
                   placeholder="e.g. Acme Corp"
                 />
@@ -189,6 +204,7 @@
                 <input
                   type="email"
                   id="email"
+                  name="Email Address"
                   class="form-input"
                   placeholder="e.g. john@acme.com"
                   required
@@ -199,6 +215,7 @@
                 <input
                   type="tel"
                   id="phone"
+                  name="Phone Number"
                   class="form-input"
                   placeholder="e.g. +1 (555) 019-9944"
                   required
@@ -209,16 +226,27 @@
             <div class="form-row">
               <div class="form-group">
                 <label class="form-label" for="property">Property Type</label>
-                <select id="property" class="form-select" required>
+                <select
+                  id="property"
+                  name="Property Type"
+                  class="form-select"
+                  required
+                >
                   <option value="" disabled selected>
                     Select property class...
                   </option>
-                  <option value="residential">Residential / Home</option>
-                  <option value="commercial">Commercial / Office</option>
-                  <option value="warehouse">Warehouse & Distribution</option>
-                  <option value="construction">Construction Site</option>
-                  <option value="retail">Retail Store</option>
-                  <option value="other">Other Property Type</option>
+                  <option value="Residential / Home">Residential / Home</option>
+                  <option value="Commercial / Office">
+                    Commercial / Office
+                  </option>
+                  <option value="Warehouse & Distribution">
+                    Warehouse & Distribution
+                  </option>
+                  <option value="Construction Site">Construction Site</option>
+                  <option value="Retail Store">Retail Store</option>
+                  <option value="Other Property Type">
+                    Other Property Type
+                  </option>
                 </select>
               </div>
               <div class="form-group">
@@ -228,6 +256,7 @@
                 <input
                   type="number"
                   id="cameras"
+                  name="Number of Cameras"
                   class="form-input"
                   placeholder="e.g. 8"
                   min="1"
@@ -242,6 +271,7 @@
               >
               <textarea
                 id="msg"
+                name="Message"
                 class="form-textarea"
                 placeholder="Detail any specific hours, security risks, or site layouts..."
                 required
@@ -250,6 +280,7 @@
 
             <button
               type="submit"
+              id="submitBtn"
               class="btn btn-primary"
               style="width: 100%; justify-content: center; margin-top: 10px"
             >
